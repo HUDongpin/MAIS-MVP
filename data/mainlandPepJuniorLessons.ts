@@ -1,4 +1,4 @@
-import lessonPackJson from "../coordination/content-qa/mainland-pep-junior-lessons-v1/lessons.json";
+import lessonPackJson from "./generated-content/mainland-pep-junior-lessons-v1/lessons.json";
 import type { LocalizedText } from "@/types";
 import type { ProductionLessonBlock, ProductionLessonSeed } from "./lessons";
 

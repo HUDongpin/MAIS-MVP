@@ -1,4 +1,4 @@
-import questionPackJson from "../coordination/content-qa/mainland-pep-junior-generated-bank-v2-1200/question-pack.json";
+import questionPackJson from "./generated-content/mainland-pep-junior-generated-bank-v2-1200/question-pack.json";
 import { mainlandPepJuniorTopics } from "./mainlandPepJuniorTopics";
 import type { Difficulty, GradeId, LocalizedText, MainlandPepSemester, Question, QuestionType } from "@/types";
 

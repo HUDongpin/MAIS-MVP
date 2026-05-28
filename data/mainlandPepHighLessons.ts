@@ -1,4 +1,4 @@
-import lessonPackJson from "../coordination/content-qa/mainland-pep-high-lessons-v1/lessons.json";
+import lessonPackJson from "./generated-content/mainland-pep-high-lessons-v1/lessons.json";
 import type { ProductionLessonBlock, ProductionLessonSeed } from "./lessons";
 
 type GeneratedCheckpoint = {

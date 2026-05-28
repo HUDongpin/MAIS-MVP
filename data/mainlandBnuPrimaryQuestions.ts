@@ -1,5 +1,5 @@
-import v1QuestionPackJson from "../coordination/content-qa/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json";
-import v2QuestionPackJson from "../coordination/content-qa/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json";
+import v1QuestionPackJson from "./generated-content/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json";
+import v2QuestionPackJson from "./generated-content/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json";
 import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
 import { mainlandBnuPrimaryTopics, type BnuPrimaryBatch } from "./mainlandBnuPrimaryTopics";
 import type {

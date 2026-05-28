@@ -1,4 +1,4 @@
-import questionPackJson from "../coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json";
+import questionPackJson from "./generated-content/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json";
 import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
 import { mainlandBnuJuniorTopics } from "./mainlandBnuJuniorTopics";
 import type {

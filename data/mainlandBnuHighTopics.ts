@@ -1,4 +1,4 @@
-import approvedQuestionPackJson from "../coordination/content-qa/mainland-bnu-high-generated-bank-v1-1500/question-pack.approved.json";
+import approvedQuestionPackJson from "./generated-content/mainland-bnu-high-generated-bank-v1-1500/question-pack.approved.json";
 import { mainlandBnuHighRagCards } from "./rag/mainlandBnuHigh";
 import type { CurriculumProfile, Difficulty, GradeId, MainlandPepSemester, Topic } from "@/types";
 

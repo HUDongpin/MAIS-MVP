@@ -1,7 +1,7 @@
-import v1QuestionPackJson from "../coordination/content-qa/mainland-hjb-high-generated-bank-v1/question-pack.json";
-import v2QuestionPackJson from "../coordination/content-qa/mainland-hjb-high-generated-bank-v2/question-pack.json";
-import v3RemediatedQuestionPackJson from "../coordination/content-qa/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json";
-import v4RemediatedQuestionPackJson from "../coordination/content-qa/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json";
+import v1QuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v1/question-pack.json";
+import v2QuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v2/question-pack.json";
+import v3RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json";
+import v4RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json";
 import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
 import { mainlandHjbHighTopics } from "./mainlandHjbHighTopics";
 import type { Difficulty, GradeId, Question, QuestionType } from "@/types";

@@ -1,4 +1,4 @@
-import lessonPackJson from "../coordination/content-qa/mainland-hjb-junior-lessons-v1/lessons.json";
+import lessonPackJson from "./generated-content/mainland-hjb-junior-lessons-v1/lessons.json";
 import { toTraditionalHjbText } from "./hjbQuestionLocalization";
 import { mainlandHjbJuniorQuestions } from "./mainlandHjbJuniorQuestions";
 import type { Difficulty, LocalizedText, Question } from "@/types";

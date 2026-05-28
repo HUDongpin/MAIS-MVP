@@ -1,4 +1,4 @@
-import questionPackJson from "../coordination/content-qa/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json";
+import questionPackJson from "./generated-content/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json";
 import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
 import { mainlandHjbPrimaryTopics } from "./mainlandHjbPrimaryTopics";
 import type {

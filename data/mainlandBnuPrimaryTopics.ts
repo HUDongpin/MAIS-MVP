@@ -1,5 +1,5 @@
-import v1QuestionPackJson from "../coordination/content-qa/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json";
-import v2QuestionPackJson from "../coordination/content-qa/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json";
+import v1QuestionPackJson from "./generated-content/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json";
+import v2QuestionPackJson from "./generated-content/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json";
 import { mainlandBnuPrimaryRagCards } from "./rag/mainlandBnuPrimary";
 import type { CurriculumProfile, Difficulty, MainlandBnuPrimaryGradeId, MainlandPepSemester, Topic } from "@/types";
 

@@ -40,6 +40,23 @@ Vercel 官方文档说明：
 
 注意：`.env.example` 和 `.env.local.example` 保留为可上传的安全模板；真实 `.env.local` 不会上传。
 
+## 运行时 JSON 数据位置
+
+部署时不能上传整个 `coordination/`，但部分线上页面和题库逻辑确实需要由 QA 流程产出的 JSON 数据。为避免 Vercel 构建时找不到模块，运行时必需的 15 个 JSON/lesson 包已复制到：
+
+```text
+data/generated-content/
+```
+
+线上代码应从 `data/generated-content/` import 这些运行时数据；`coordination/content-qa/` 继续作为 QA、生成过程、审查报告和工作中间产物的归档区，不作为部署依赖。
+
+如果以后有新的题库 JSON 要进入线上运行，请按同一原则处理：
+
+1. 把最小运行时 JSON 复制到 `data/generated-content/`。
+2. 更新 `data/*.ts` 的 import 路径。
+3. 保持 `.vercelignore` 排除 `coordination/`。
+4. 运行 `npm run type-check` 和 `npm run build`。
+
 ## 为什么要排除这些目录
 
 当前本地体积中，主要不应进入部署包的目录包括：

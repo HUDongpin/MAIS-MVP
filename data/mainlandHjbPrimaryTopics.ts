@@ -1,4 +1,4 @@
-import questionPackJson from "../coordination/content-qa/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json";
+import questionPackJson from "./generated-content/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json";
 import { mainlandHjbPrimaryRagCards } from "./rag/mainlandHjbPrimary";
 import { translateHjbTextToEnglish } from "./hjbQuestionLocalization";
 import type { CurriculumProfile, Difficulty, MainlandHjbPrimaryGradeId, MainlandPepSemester, Topic } from "@/types";
