@@ -1,0 +1,41 @@
+# Local Git and Vercel state
+.git/
+.vercel/
+
+# Dependencies and build output
+node_modules/
+.next/
+out/
+dist/
+build/
+.turbo/
+
+# Coordination, QA, reports, and tests
+coordination/
+tests/
+test-results/
+playwright-report/
+.playwright-cli/
+video-plan/
+
+# Local/generated output
+.local/
+.tmp/
+tmp/
+temp/
+output/
+outputs/
+coverage/
+.cache/
+
+# Logs and local-only files
+*.log
+*.tsbuildinfo
+.DS_Store
+.Rhistory
+default accounts.md
+.env
+.env.*
+*.local
+!.env.example
+!.env.local.example
